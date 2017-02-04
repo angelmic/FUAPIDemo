@@ -19,7 +19,8 @@
 @property (nonatomic, assign) id<FUCameraDelegate> delegate;
 @property (nonatomic, assign, readonly) BOOL isFrontCamera;
 @property (copy  , nonatomic) dispatch_queue_t  captureQueue;//录制的队列
-@property (assign, nonatomic) AVCaptureDevicePosition cameraPosition;
+
+- (instancetype)initWithCameraPosition:(AVCaptureDevicePosition)cameraPosition captureFormat:(int)captureFormat;
 
 - (void)startUp;
 

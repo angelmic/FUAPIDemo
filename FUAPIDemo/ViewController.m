@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import <GLKit/GLKit.h>
-#import "FUGLView.h"
 #import "FUCamera.h"
 #import <FUAPIDemoBar/FUAPIDemoBar.h>
 
@@ -27,12 +26,17 @@
     int frameID;
     BOOL needReloadItem;
     // --------------- Faceunity ----------------
+    
+    FUCamera *curCamera;
 }
-@property (nonatomic, strong) IBOutlet FUGLView *fuGlView;//本地渲染用
 
 @property (nonatomic, strong) IBOutlet FUAPIDemoBar *demoBar;//工具条
 
-@property (nonatomic, strong) FUCamera *camera;//摄像头获取视频
+@property (nonatomic, strong) FUCamera *bgraCamera;//BGRA摄像头
+
+@property (nonatomic, strong) FUCamera *yuvCamera;//YUV摄像头
+
+@property (nonatomic, strong) AVSampleBufferDisplayLayer *bufferDisplayer;
 
 @property (weak, nonatomic) IBOutlet UILabel *noTrackView;
 
@@ -48,16 +52,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self addObserver];
     
     needReloadItem = YES;
     
-    [self.camera startUp];
+    curCamera = self.bgraCamera;
+    [curCamera startUp];
     
-    [self.fuGlView setupGL];
+    self.bufferDisplayer.frame = self.view.bounds;
     
-    self.fuGlView.isFrontCamera = self.camera.isFrontCamera;
+    
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopDisplay) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+//底部工具条
 - (void)setDemoBar:(FUAPIDemoBar *)demoBar
 {
     _demoBar = demoBar;
@@ -78,31 +94,79 @@
     _demoBar.delegate = self;
 }
 
-- (FUCamera *)camera
+//bgra摄像头
+- (FUCamera *)bgraCamera
 {
-    if (!_camera) {
-        _camera = [[FUCamera alloc] init];
+    if (!_bgraCamera) {
+        _bgraCamera = [[FUCamera alloc] init];
         
-        _camera.cameraPosition = AVCaptureDevicePositionFront;
-        
-        _camera.delegate = self;
+        _bgraCamera.delegate = self;
         
     }
     
-    return _camera;
+    return _bgraCamera;
 }
 
+//yuv摄像头
+- (FUCamera *)yuvCamera
+{
+    if (!_yuvCamera) {
+        _yuvCamera = [[FUCamera alloc] initWithCameraPosition:AVCaptureDevicePositionFront captureFormat:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange];
+        
+        _yuvCamera.delegate = self;
+    }
+    
+    return _yuvCamera;
+}
+
+//显示摄像头画面
+- (AVSampleBufferDisplayLayer *)bufferDisplayer
+{
+    if (!_bufferDisplayer) {
+        _bufferDisplayer = [[AVSampleBufferDisplayLayer alloc] init];
+        _bufferDisplayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        _bufferDisplayer.frame = self.view.bounds;
+        
+        [self.view.layer insertSublayer:_bufferDisplayer atIndex:0];
+    }
+    
+    return _bufferDisplayer;
+}
+
+//进入后台停止显示
+- (void)stopDisplay
+{
+    [_bufferDisplayer stopRequestingMediaData];
+    [_bufferDisplayer removeFromSuperlayer];
+    _bufferDisplayer = nil;
+}
+
+#pragma -摄像头切换
 - (IBAction)changeCamera:(UIButton *)sender {
     
-    [self.camera changeCameraInputDeviceisFront:!self.camera.isFrontCamera];
+    [self.bgraCamera changeCameraInputDeviceisFront:!self.bgraCamera.isFrontCamera];
+    [self.yuvCamera changeCameraInputDeviceisFront:!self.yuvCamera.isFrontCamera];
+    [curCamera startCapture];
+}
+
+#pragma -BGRA/YUV切换
+- (IBAction)changeCaptureFormat:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0 && curCamera == self.yuvCamera)
+    {
+        [curCamera stopCapture];
+        curCamera = self.bgraCamera;
+    }else if (sender.selectedSegmentIndex == 1 && curCamera == self.bgraCamera){
+        [curCamera stopCapture];
+        curCamera = self.yuvCamera;
+    }
+    [curCamera startCapture];
     
-    self.fuGlView.isFrontCamera = self.camera.isFrontCamera;
 }
 
 #pragma -FUCameraDelegate
 - (void)demoBarDidSelectedItem:(NSString *)item
 {
-    dispatch_async(_camera.captureQueue, ^{
+    dispatch_async(curCamera.captureQueue, ^{
         needReloadItem = YES;
     });
 }
@@ -110,6 +174,10 @@
 #pragma -FUCameraDelegate
 - (void)didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+        return;
+    }
+    
     //如果当前环境中已存在EAGLContext，此步骤可省略，但必须要调用[EAGLContext setCurrentContext:curContext]函数。
     #warning 此步骤不可放在异步线程中执行
     [self setUpContext];
@@ -158,7 +226,9 @@
     
     #warning 执行完上一步骤，即可将pixelBuffer绘制到屏幕上或推流到服务器进行直播
     //本地显示视频图像
-    [_fuGlView displayPixelBuffer:pixelBuffer];
+    if ([self.bufferDisplayer isReadyForMoreMediaData]) {
+        [self.bufferDisplayer enqueueSampleBuffer:sampleBuffer];
+    }
 }
 
 #pragma -Faceunity Set EAGLContext

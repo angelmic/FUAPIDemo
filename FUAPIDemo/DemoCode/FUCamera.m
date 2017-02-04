@@ -8,7 +8,7 @@
 
 #import "FUCamera.h"
 
-#define captureFormat kCVPixelFormatType_32BGRA
+//#define captureFormat kCVPixelFormatType_32BGRA 
 //#define captureFormat kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
 @interface FUCamera()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
 
@@ -19,20 +19,33 @@
 @property (nonatomic, strong) AVCaptureConnection *videoConnection;
 @property (nonatomic, strong) AVCaptureDevice *camera;
 
+@property (assign, nonatomic) AVCaptureDevicePosition cameraPosition;
+@property (assign, nonatomic) int captureFormat;
+
 @end
 
 @implementation FUCamera
+
+- (instancetype)initWithCameraPosition:(AVCaptureDevicePosition)cameraPosition captureFormat:(int)captureFormat
+{
+    if (self = [super init]) {
+        self.cameraPosition = cameraPosition;
+        self.captureFormat = captureFormat;
+    }
+    return self;
+}
 
 - (instancetype)init
 {
     if (self = [super init]) {
         self.cameraPosition = AVCaptureDevicePositionFront;
+        self.captureFormat = kCVPixelFormatType_32BGRA;
     }
     return self;
 }
 
 - (void)startUp{
-    [self.captureSession startRunning];
+    [self startCapture];
 }
 
 - (void)startCapture{
@@ -69,7 +82,9 @@
         }
         
         [self.videoConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
-        
+        if (self.videoConnection.supportsVideoMirroring) {
+            self.videoConnection.videoMirrored = YES;
+        }
     }
     return _captureSession;
 }
@@ -130,7 +145,10 @@
     }
     
     self.videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
-    [self.captureSession startRunning];
+    if (self.videoConnection.supportsVideoMirroring) {
+        self.videoConnection.videoMirrored = isFront;
+    }
+    //[self.captureSession startRunning];
 }
 
 //用来返回是前置摄像头还是后置摄像头
@@ -166,7 +184,7 @@
         //输出
         _videoOutput = [[AVCaptureVideoDataOutput alloc] init];
         [_videoOutput setAlwaysDiscardsLateVideoFrames:YES];
-        [_videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:captureFormat] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
+        [_videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:_captureFormat] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
         [_videoOutput setSampleBufferDelegate:self queue:self.captureQueue];
     }
     return _videoOutput;
@@ -183,6 +201,8 @@
 //视频连接
 - (AVCaptureConnection *)videoConnection {
     _videoConnection = [self.videoOutput connectionWithMediaType:AVMediaTypeVideo];
+    _videoConnection.automaticallyAdjustsVideoMirroring =  NO;
+    
     return _videoConnection;
 }
 

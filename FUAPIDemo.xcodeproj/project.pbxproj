@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		CD05DD451E24B2AB00FFC26C /* FUAPIDemoBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD05DD431E24B29C00FFC26C /* FUAPIDemoBar.framework */; };
 		CD05DD461E24B2AB00FFC26C /* FUAPIDemoBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD05DD431E24B29C00FFC26C /* FUAPIDemoBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CD6D534B1E23AA0000007792 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = CD6D53491E23AA0000007792 /* Shader.fsh */; };
-		CD6D534C1E23AA0000007792 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = CD6D534A1E23AA0000007792 /* Shader.vsh */; };
+		CD0ADECB1E28CC9600C97F33 /* libnama.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0ADECA1E28CC9600C97F33 /* libnama.a */; };
 		CD82D2131E236DB800D1EE7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD82D2121E236DB800D1EE7D /* main.m */; };
 		CD82D2161E236DB800D1EE7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD82D2151E236DB800D1EE7D /* AppDelegate.m */; };
 		CD82D2191E236DB800D1EE7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD82D2181E236DB800D1EE7D /* ViewController.m */; };
@@ -27,14 +26,12 @@
 		CD82D2441E236F2900D1EE7D /* item0208.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D2341E236F2900D1EE7D /* item0208.bundle */; };
 		CD82D2451E236F2900D1EE7D /* item0210.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D2351E236F2900D1EE7D /* item0210.bundle */; };
 		CD82D2461E236F2900D1EE7D /* item0501.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D2361E236F2900D1EE7D /* item0501.bundle */; };
-		CD82D2471E236F2900D1EE7D /* libnama.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD82D2371E236F2900D1EE7D /* libnama.a */; };
 		CD82D2481E236F2900D1EE7D /* Mood.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D2381E236F2900D1EE7D /* Mood.bundle */; };
 		CD82D2491E236F2900D1EE7D /* PrincessCrown.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D2391E236F2900D1EE7D /* PrincessCrown.bundle */; };
 		CD82D24A1E236F2900D1EE7D /* tiara.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D23A1E236F2900D1EE7D /* tiara.bundle */; };
 		CD82D24B1E236F2900D1EE7D /* v3.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D23B1E236F2900D1EE7D /* v3.bundle */; };
 		CD82D24C1E236F2900D1EE7D /* YellowEar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD82D23C1E236F2900D1EE7D /* YellowEar.bundle */; };
 		CD82D2551E23789400D1EE7D /* FUCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = CD82D2541E23789400D1EE7D /* FUCamera.m */; };
-		CDB1FE501E23A6DA000E0C8D /* FUGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB1FE4F1E23A6DA000E0C8D /* FUGLView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,8 +50,7 @@
 
 /* Begin PBXFileReference section */
 		CD05DD431E24B29C00FFC26C /* FUAPIDemoBar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FUAPIDemoBar.framework; sourceTree = "<group>"; };
-		CD6D53491E23AA0000007792 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
-		CD6D534A1E23AA0000007792 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		CD0ADECA1E28CC9600C97F33 /* libnama.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnama.a; sourceTree = "<group>"; };
 		CD82D20E1E236DB800D1EE7D /* FUAPIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FUAPIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD82D2121E236DB800D1EE7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CD82D2141E236DB800D1EE7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -78,7 +74,6 @@
 		CD82D2341E236F2900D1EE7D /* item0208.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = item0208.bundle; sourceTree = "<group>"; };
 		CD82D2351E236F2900D1EE7D /* item0210.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = item0210.bundle; sourceTree = "<group>"; };
 		CD82D2361E236F2900D1EE7D /* item0501.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = item0501.bundle; sourceTree = "<group>"; };
-		CD82D2371E236F2900D1EE7D /* libnama.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnama.a; sourceTree = "<group>"; };
 		CD82D2381E236F2900D1EE7D /* Mood.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = Mood.bundle; sourceTree = "<group>"; };
 		CD82D2391E236F2900D1EE7D /* PrincessCrown.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = PrincessCrown.bundle; sourceTree = "<group>"; };
 		CD82D23A1E236F2900D1EE7D /* tiara.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = tiara.bundle; sourceTree = "<group>"; };
@@ -86,8 +81,6 @@
 		CD82D23C1E236F2900D1EE7D /* YellowEar.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = YellowEar.bundle; sourceTree = "<group>"; };
 		CD82D2531E23789400D1EE7D /* FUCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUCamera.h; sourceTree = "<group>"; };
 		CD82D2541E23789400D1EE7D /* FUCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUCamera.m; sourceTree = "<group>"; };
-		CDB1FE4E1E23A6DA000E0C8D /* FUGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUGLView.h; sourceTree = "<group>"; };
-		CDB1FE4F1E23A6DA000E0C8D /* FUGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUGLView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD82D2471E236F2900D1EE7D /* libnama.a in Frameworks */,
+				CD0ADECB1E28CC9600C97F33 /* libnama.a in Frameworks */,
 				CD05DD451E24B2AB00FFC26C /* FUAPIDemoBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,10 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				CD05DD431E24B29C00FFC26C /* FUAPIDemoBar.framework */,
-				CDB1FE4E1E23A6DA000E0C8D /* FUGLView.h */,
-				CDB1FE4F1E23A6DA000E0C8D /* FUGLView.m */,
-				CD6D53491E23AA0000007792 /* Shader.fsh */,
-				CD6D534A1E23AA0000007792 /* Shader.vsh */,
 				CD82D2531E23789400D1EE7D /* FUCamera.h */,
 				CD82D2541E23789400D1EE7D /* FUCamera.m */,
 			);
@@ -162,6 +151,7 @@
 		CD82D2291E236F2900D1EE7D /* Faceunity */ = {
 			isa = PBXGroup;
 			children = (
+				CD0ADECA1E28CC9600C97F33 /* libnama.a */,
 				CD82D22A1E236F2900D1EE7D /* authpack.h */,
 				CD82D22B1E236F2900D1EE7D /* BeagleDog.bundle */,
 				CD82D22C1E236F2900D1EE7D /* ColorCrown.bundle */,
@@ -175,7 +165,6 @@
 				CD82D2341E236F2900D1EE7D /* item0208.bundle */,
 				CD82D2351E236F2900D1EE7D /* item0210.bundle */,
 				CD82D2361E236F2900D1EE7D /* item0501.bundle */,
-				CD82D2371E236F2900D1EE7D /* libnama.a */,
 				CD82D2381E236F2900D1EE7D /* Mood.bundle */,
 				CD82D2391E236F2900D1EE7D /* PrincessCrown.bundle */,
 				CD82D23A1E236F2900D1EE7D /* tiara.bundle */,
@@ -248,11 +237,9 @@
 				CD82D2481E236F2900D1EE7D /* Mood.bundle in Resources */,
 				CD82D2441E236F2900D1EE7D /* item0208.bundle in Resources */,
 				CD82D2421E236F2900D1EE7D /* hartshorn.bundle in Resources */,
-				CD6D534B1E23AA0000007792 /* Shader.fsh in Resources */,
 				CD82D2211E236DB800D1EE7D /* LaunchScreen.storyboard in Resources */,
 				CD82D24B1E236F2900D1EE7D /* v3.bundle in Resources */,
 				CD82D23F1E236F2900D1EE7D /* Deer.bundle in Resources */,
-				CD6D534C1E23AA0000007792 /* Shader.vsh in Resources */,
 				CD82D24C1E236F2900D1EE7D /* YellowEar.bundle in Resources */,
 				CD82D24A1E236F2900D1EE7D /* tiara.bundle in Resources */,
 				CD82D23E1E236F2900D1EE7D /* ColorCrown.bundle in Resources */,
@@ -279,7 +266,6 @@
 				CD82D2161E236DB800D1EE7D /* AppDelegate.m in Sources */,
 				CD82D2551E23789400D1EE7D /* FUCamera.m in Sources */,
 				CD82D2131E236DB800D1EE7D /* main.m in Sources */,
-				CDB1FE501E23A6DA000E0C8D /* FUGLView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +385,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 35A6KD62ZJ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FUAPIDemo/DemoCode",
@@ -420,7 +408,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 35A6KD62ZJ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FUAPIDemo/DemoCode",

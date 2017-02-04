@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,13 +18,13 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="FUGLView">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEb-dE-FKO" customClass="FUAPIDemoBar">
                                 <rect key="frame" x="0.0" y="539" width="375" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="MtX-M7-fao"/>
                                 </constraints>
@@ -41,8 +42,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4JB-yh-kQZ">
+                                <rect key="frame" x="16" y="13.5" width="101" height="29"/>
+                                <segments>
+                                    <segment title="BGRA"/>
+                                    <segment title="YUV"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeCaptureFormat:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vya-ez-b9r"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fEb-dE-FKO" secondAttribute="trailing" id="Fww-zy-IwP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fEb-dE-FKO" secondAttribute="bottom" id="JX4-Sd-CVa"/>
@@ -50,6 +62,8 @@
                             <constraint firstItem="YWw-73-tqa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RUI-LA-4NE"/>
                             <constraint firstItem="SBT-Gd-3MN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="T3s-Cx-C3S"/>
                             <constraint firstItem="YWw-73-tqa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ft0-ge-meG"/>
+                            <constraint firstItem="SBT-Gd-3MN" firstAttribute="centerY" secondItem="4JB-yh-kQZ" secondAttribute="centerY" id="tpO-C3-2ct"/>
+                            <constraint firstItem="4JB-yh-kQZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="v0U-mG-yLh"/>
                             <constraint firstAttribute="trailing" secondItem="SBT-Gd-3MN" secondAttribute="trailing" constant="10" id="vhB-wr-GVN"/>
                         </constraints>
                     </view>
@@ -57,7 +71,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="demoBar" destination="fEb-dE-FKO" id="ObI-No-aGx"/>
-                        <outlet property="fuGlView" destination="8bC-Xf-vdC" id="ig0-Am-5pN"/>
                         <outlet property="noTrackView" destination="YWw-73-tqa" id="rCd-rf-VLM"/>
                     </connections>
                 </viewController>
