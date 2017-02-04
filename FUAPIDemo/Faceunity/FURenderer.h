@@ -23,12 +23,12 @@ typedef struct{
  \brief Initialize and authenticate your SDK instance to the FaceUnity server, must be called exactly once before all other functions.
 	The buffers should NEVER be freed while the other functions are still being called.
 	You can call this function multiple times to "switch pointers".
- \param data should point to contents of the "v2.bin" we provide
+ \param v2data should point to contents of the "v2.bin" we provide
  \param ardata should point to contents of the "ar.bin" we provide
  \param package is the pointer to the authentication data pack we provide. You must avoid storing the data in a file.
 	Normally you can just `#include "authpack.h"` and put `g_auth_package` here.
  */
-- (void)setupWithData:(void *)data ardata:(void *)ardata authPackage:(void *)package authSize:(int)size;
+- (void)setupWithData:(void *)v2data ardata:(void *)ardata authPackage:(void *)package authSize:(int)size;
 
 /**
  \brief Generalized interface for rendering a list of items.
@@ -55,6 +55,4 @@ typedef struct{
  */
 - (FUOutput)renderPixelBuffer:(CVPixelBufferRef)pixelBuffer bgraTexture:(GLuint)textureHandle withFrameId:(int)frameid items:(int *)items itemCount:(int)itemCount;
 
-
-- (void)renderFrame:(uint8_t*)y u:(uint8_t*)u v:(uint8_t*)v ystride:(int)ystride ustride:(int)ustride vstride:(int)vstride width:(int)width height:(int)height frameId:(int)frameid items:(int *)items itemCount:(int)itemCount;
 @end
