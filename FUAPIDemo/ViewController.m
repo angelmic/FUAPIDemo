@@ -70,7 +70,9 @@
 }
 
 - (void)addObserver{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopDisplay) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 //底部工具条
@@ -133,13 +135,24 @@
     return _bufferDisplayer;
 }
 
-//进入后台停止显示
-- (void)stopDisplay
+- (void)willResignActive
 {
-    [_bufferDisplayer stopRequestingMediaData];
-    [_bufferDisplayer removeFromSuperlayer];
-    _bufferDisplayer = nil;
+    
+    [curCamera stopCapture];
+    
 }
+
+- (void)willEnterForeground
+{
+    
+    [curCamera startCapture];
+}
+
+- (void)didBecomeActive
+{
+//    [curCamera startCapture];
+}
+
 
 #pragma -摄像头切换
 - (IBAction)changeCamera:(UIButton *)sender {
@@ -226,6 +239,11 @@
     
     #warning 执行完上一步骤，即可将pixelBuffer绘制到屏幕上或推流到服务器进行直播
     //本地显示视频图像
+    
+    if (self.bufferDisplayer.status == AVQueuedSampleBufferRenderingStatusFailed) {
+        [self.bufferDisplayer flush];
+    }
+    
     if ([self.bufferDisplayer isReadyForMoreMediaData]) {
         [self.bufferDisplayer enqueueSampleBuffer:sampleBuffer];
     }
@@ -240,6 +258,7 @@
     if(!mcontext || ![EAGLContext setCurrentContext:mcontext]){
         NSLog(@"faceunity: failed to create / set a GLES2 context");
     }
+    
 }
 
 #pragma -Faceunity Load Data
